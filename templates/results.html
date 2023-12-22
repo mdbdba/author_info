@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en-US">
+    <head>
+        <title>Book Results</title>
+    </head>
+    <body>
+        <h1>Books by Author</h1>
+        {% for book in books %}
+            <p>{{book["title"]}} - {{book["first_publish_year"]}}</p>
+        {% endfor %}
+    </body>
+</html>
