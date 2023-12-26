@@ -1,12 +1,66 @@
 <!DOCTYPE html>
 <html lang="en-US">
     <head>
-        <title>Book Results</title>
+        <title>Sister's in Crime Book Search</title>
     </head>
     <body>
-        <h1>Books by Author</h1>
-        {% for book in books %}
-            <p>{{book["title"]}} - {{book["first_publish_year"]}}</p>
-        {% endfor %}
+    {% extends "bootstrap/base.html" %}
+    {% block title %}
+    Sister's in Crime Book Search
+    {% endblock %}
+
+{% block styles %}
+  {{ super() }}  <!-- keep this line to inherit any needed css from base -->
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/bootstrap.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/custom.css') }}">
+
+    {% endblock %}
+    {% block content %}
+  <div class="container">
+       <table>
+           <tr>
+               <td>
+                   <h2>{{ author.fl_cap }}</h2>
+                   <h4>openLibrary ID: {{ author.key }}</h4>
+               </td>
+               <td>{% if author.image != "" %}
+                   <img src="{{ url_for('static', filename=author.image) }}" alt="Author Picture" height="100">
+                   {% else %}
+                   <img src="{{ url_for('static', filename='default_images/author_default.jpg') }}" alt="Author Picture" height="100">
+                   {% endif %}
+               </td>
+           </tr>
+       </table>
+       <table>
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>First Publish Year</th>
+                    <th>ISBN</th>
+                    <th>ASIN</th>
+                    <th>Book Cover Image</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for book in books %}
+                <tr>
+                    <td>{{ book.title }}</td>
+                    <td>{{ book.first_publish_year }}</td>
+                    <td>{{ book.isbn }}</td>
+                    <td>{{ book.asin }}</td>
+                    <td>{% if book.book_cover_image != "" %}
+                        <img src="{{ url_for('static',filename=book.book_cover_image) }}"
+                             alt="Cover" height="100">
+                        {% else %}
+                        <img src="{{ url_for('static',filename='default_images/cover_default.png') }}"
+                             alt="Cover" height="100">
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+       </table>
+  </div>
+{% endblock %}
     </body>
 </html>

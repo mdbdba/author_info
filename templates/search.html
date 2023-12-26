@@ -1,16 +1,43 @@
 <!DOCTYPE html>
 <html lang="en-US">
+
     <head>
-        <title>Book Search</title>
+        <title>Sister's in Crime Book Search</title>
     </head>
     <body>
+    {% extends "bootstrap/base.html" %}
+    {% block title %}
+    Sister's in Crime Book Search
+    {% endblock %}
+
+{% block styles %}
+  {{ super() }}  <!-- keep this line to inherit any needed css from base -->
+  <link rel="stylesheet" href="{{ url_for('static',filename='css/bootstrap.css') }}">
+    {% endblock %}
+    {% block content %}
+
         <h1>Search for Books by Author</h1>
         <form action="/search" method="POST">
-            <label for="author">Author:</label><br>
-            <input type="text" id="author" name="author" required><br>
-            <label for="book">Book:</label><br>
-            <input type="text" id="book" name="book" required><br>
-            <input type="submit" value="Search">
+            <label class="col-form-label col-form-label-lg mt-4" for="author">Author:</label><br>
+            <input type="text" class="form-control form-control-lg" id="author" name="author" required><br>
+            <label class="col-form-label col-form-label-lg mt-4" for="book">Book:</label><br>
+            <input type="text" class="form-control form-control-lg" id="book" name="book" required><br>
+            <input type="submit" class="btn btn-primary" value="Search" id="search">
         </form>
+    <div id="progress" class="progress" style="display:none;">
+    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
+</div>
+      <br>
+      <div class="container">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function(){
+        $('#search').click(function() {
+            $('#progress').show();
+        });
+    });
+</script>
+      </div>
+{% endblock %}
     </body>
 </html>

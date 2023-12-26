@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+    <head>
+        <title>Sister's in Crime Book Search</title>
+    </head>
+    <body>
+    {% extends "bootstrap/base.html" %}
+    {% block title %}
+    Sister's in Crime Book Search
+    {% endblock %}
+
+{% block styles %}
+  {{ super() }}  <!-- keep this line to inherit any needed css from base -->
+  <link rel="stylesheet" href="{{ url_for('static',filename='css/bootstrap.css') }}">
+    {% endblock %}
+
+
+{% block content %}
+<div class="container">
+  <h1 class="my-4">Upload an Image</h1>
+  <form action="/image_upload" method="POST"
+        class="dropzone" id="myDropzone"
+        enctype="multipart/form-data">
+      <div class="fallback">
+    <input type="file" id="file" name="file" multiple>
+    <input type="submit" value="Upload">
+      </div>
+
+  </form>
+</div>
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.7.2/dropzone.min.css" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.7.2/min/dropzone.min.js"></script>
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/custom.css') }}">
+  <script>
+  Dropzone.options.myDropzone = {
+    paramName: "file", // The name that will be used to transfer the file
+    uploadMultiple: false,
+    maxFilesize: 10, // MB
+    acceptedFiles: 'image/*',
+    addRemoveLinks: true,
+    dictDefaultMessage: "Drag an image here to upload, or click to select one", // The default message displayed when the dropzone is empty
+      init: function() {
+        this.on('success', function() {
+          if (this.getQueuedFiles().length === 0 && this.getUploadingFiles().length === 0) {
+            window.location.reload();
+          }
+        });
+      }
+    };
+  </script>
+
+
+{% endblock %}

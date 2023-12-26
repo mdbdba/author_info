@@ -1,3 +1,5 @@
 .idea/
 .DS_Store
-
+static/
+static/downloaded_images/
+__pycache__/
